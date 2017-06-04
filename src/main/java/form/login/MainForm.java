@@ -1,10 +1,15 @@
-package form;
+package form.login;
+
+import form.organization.OrganizationForm;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 public class MainForm extends JFrame{
+    public static MainForm form;
     private String loginType[] = {"Організація", "Юредична/фізична особа"};
     private JComboBox loginTypeComboBox = new JComboBox(loginType);
     private JLabel loginLabel = new JLabel("Код організації:");
@@ -34,13 +39,30 @@ public class MainForm extends JFrame{
 
         this.setLayout(null);
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
         loginTypeComboBox.addItemListener(new LoginTypeItemListener());
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Login login = new Login(loginField.getText(), passwordField.getText());
+                if (login.isValid()) {
+                    new OrganizationForm(form, login.organization());
+                    form.setVisible(false);
+                } else {
+                    msgbox("Невірний логін та/або пароль");
+                }
+            }
+        });
+    }
+
+    private void msgbox(String s){
+        JOptionPane.showMessageDialog(null, s);
     }
 
     public static void main(String[] args) {
-        MainForm app = new MainForm();
-        app.setVisible(true);
+        MainForm.form = new MainForm();
+        MainForm.form.setVisible(true);
     }
 
     class LoginTypeItemListener implements ItemListener {
