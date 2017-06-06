@@ -1,6 +1,6 @@
-package form.login;
+package organization.form;
 
-import form.organization.OrganizationForm;
+import organization.Login;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-public class MainForm extends JFrame{
-    public static MainForm form;
+public class LoginForm extends JFrame{
+    public static LoginForm form;
     private String loginType[] = {"Організація", "Юредична/фізична особа"};
     private JComboBox loginTypeComboBox = new JComboBox(loginType);
     private JLabel loginLabel = new JLabel("Код організації:");
@@ -18,7 +18,7 @@ public class MainForm extends JFrame{
     private JTextField passwordField = new JTextField();
     private JButton loginButton = new JButton("Увійти");
 
-    public MainForm() {
+    public LoginForm() {
         super("АІС «Орендна плата за нежитлові приміщення» - Вхід до системи");
         this.setBounds(100,100,530,220);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,8 +61,8 @@ public class MainForm extends JFrame{
     }
 
     public static void main(String[] args) {
-        MainForm.form = new MainForm();
-        MainForm.form.setVisible(true);
+        LoginForm.form = new LoginForm();
+        LoginForm.form.setVisible(true);
     }
 
     class LoginTypeItemListener implements ItemListener {

@@ -1,4 +1,4 @@
-package form.login;
+package organization;
 
 import dao.OrganizationDAO;
 import entity.Organization;

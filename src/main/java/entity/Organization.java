@@ -29,6 +29,10 @@ public class Organization implements Serializable {
     private List<Apartment> apartmentList;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "organization", cascade = CascadeType.ALL)
     private List<Lease> leaseList;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "organization", cascade = CascadeType.ALL)
+    private List<LegalPerson> legalPersonListList;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "organization", cascade = CascadeType.ALL)
+    private List<NaturalPerson> naturalPersonList;
 
     Organization() {}
 
@@ -110,5 +114,21 @@ public class Organization implements Serializable {
 
     public void setLeaseList(List<Lease> leaseList) {
         this.leaseList = leaseList;
+    }
+
+    public List<LegalPerson> getLegalPersonListList() {
+        return legalPersonListList;
+    }
+
+    public void setLegalPersonListList(List<LegalPerson> legalPersonListList) {
+        this.legalPersonListList = legalPersonListList;
+    }
+
+    public List<NaturalPerson> getNaturalPersonList() {
+        return naturalPersonList;
+    }
+
+    public void setNaturalPersonList(List<NaturalPerson> naturalPersonList) {
+        this.naturalPersonList = naturalPersonList;
     }
 }

@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name="Natural_person")
@@ -32,4 +33,107 @@ public class NaturalPerson implements Serializable {
     int individualTaxNumber;
     @Column(name = "address")
     String address;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "naturalPersonRenter", cascade = CascadeType.ALL)
+    List<Lease> leaseList;
+    @ManyToOne
+    @JoinColumn(name = "organization_id", referencedColumnName = "id")
+    private Organization organization;
+
+    NaturalPerson() {}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getPassportSeries() {
+        return passportSeries;
+    }
+
+    public void setPassportSeries(String passportSeries) {
+        this.passportSeries = passportSeries;
+    }
+
+    public int getPassportNumber() {
+        return passportNumber;
+    }
+
+    public void setPassportNumber(int passportNumber) {
+        this.passportNumber = passportNumber;
+    }
+
+    public LocalDateTime getPassportIssueDate() {
+        return passportIssueDate;
+    }
+
+    public void setPassportIssueDate(LocalDateTime passportIssueDate) {
+        this.passportIssueDate = passportIssueDate;
+    }
+
+    public String getPassportIssued() {
+        return passportIssued;
+    }
+
+    public void setPassportIssued(String passportIssued) {
+        this.passportIssued = passportIssued;
+    }
+
+    public int getIndividualTaxNumber() {
+        return individualTaxNumber;
+    }
+
+    public void setIndividualTaxNumber(int individualTaxNumber) {
+        this.individualTaxNumber = individualTaxNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public List<Lease> getLeaseList() {
+        return leaseList;
+    }
+
+    public void setLeaseList(List<Lease> leaseList) {
+        this.leaseList = leaseList;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
 }

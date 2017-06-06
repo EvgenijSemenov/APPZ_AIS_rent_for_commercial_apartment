@@ -1,4 +1,4 @@
-package form.organization;
+package organization.form;
 
 import entity.Apartment;
 import entity.Lease;
@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotRentedRoomForm extends JFrame {
+public class NotRentedApartmentForm extends JFrame {
     private Object rowData[][];
     private Object columnNames[] = { "Адреса", "Площа - кв.м.", "Площа підвалу - кв.м.", "Коефіцієнт підвалу", "Коефіцієнт технічного облаштування приміщення" };
 
-    NotRentedRoomForm(List<Apartment> apartments) {
+    NotRentedApartmentForm(List<Apartment> apartments) {
         super("Список приміщень, що не здані в оренду");
         this.setSize(805,300);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

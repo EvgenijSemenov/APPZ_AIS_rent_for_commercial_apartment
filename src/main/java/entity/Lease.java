@@ -31,6 +31,12 @@ public class Lease implements Serializable {
     @ManyToOne
     @JoinColumn(name = "organization_id", referencedColumnName = "id")
     private Organization organization;
+    @ManyToOne
+    @JoinColumn(name = "legal_person_renter_id", referencedColumnName = "id")
+    private LegalPerson legalPersonRenter;
+    @ManyToOne
+    @JoinColumn(name = "natural_person_renter_id", referencedColumnName = "id")
+    private NaturalPerson naturalPersonRenter;
 
     Lease() {}
 
@@ -88,5 +94,21 @@ public class Lease implements Serializable {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    public LegalPerson getLegalPersonRenter() {
+        return legalPersonRenter;
+    }
+
+    public void setLegalPersonRenter(LegalPerson legalPersonRenter) {
+        this.legalPersonRenter = legalPersonRenter;
+    }
+
+    public NaturalPerson getNaturalPersonRenter() {
+        return naturalPersonRenter;
+    }
+
+    public void setNaturalPersonRenter(NaturalPerson naturalPersonRenter) {
+        this.naturalPersonRenter = naturalPersonRenter;
     }
 }
