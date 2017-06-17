@@ -1,40 +1,48 @@
 package entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name="Organization")
-public class Organization implements Serializable {
+public class Organization {
+
     @Id
     @GeneratedValue
     @Column(name = "id")
     int id;
-    @Column(name = "code", unique = true)
-    String code;
+
     @Column(name = "name")
     String name;
+
     @Column(name = "short_name")
     String shortName;
+
     @Column(name = "address")
     String address;
+
     @Column(name = "contact_number")
     String contactNumber;
+
     @Column(name = "email", unique = true)
     String email;
-    @Column(name = "password")
-    String password;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "organization", cascade = CascadeType.ALL)
     private List<Apartment> apartmentList;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "organization", cascade = CascadeType.ALL)
     private List<Lease> leaseList;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "organization", cascade = CascadeType.ALL)
     private List<LegalPerson> legalPersonListList;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "organization", cascade = CascadeType.ALL)
     private List<NaturalPerson> naturalPersonList;
 
-    Organization() {}
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "organization", cascade = CascadeType.ALL)
+    private List<Employee> employeeList;
+
+    public Organization() {}
 
     public int getId() {
         return id;
@@ -42,14 +50,6 @@ public class Organization implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -90,14 +90,6 @@ public class Organization implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public List<Apartment> getApartmentList() {

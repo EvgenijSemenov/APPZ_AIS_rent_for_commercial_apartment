@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import util.*;
 
 public class NaturalPersonInfoForm extends JFrame{
     private JLabel flsLabel = new JLabel();
@@ -26,11 +27,9 @@ public class NaturalPersonInfoForm extends JFrame{
         this.setSize(805, 300);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-
         flsLabel.setText("ПІБ: " + naturalPerson.getLastName() + " " + naturalPerson.getFirstName() + " " + naturalPerson.getSurname());
         passportSeriesAndNumberLabel.setText("Серія та номер паспорта: " + naturalPerson.getPassportSeries() + naturalPerson.getPassportNumber());
-        passportIssueDateLabel.setText("Дата видачі паспорта: " + naturalPerson.getPassportIssueDate().format(formatter));
+        passportIssueDateLabel.setText("Дата видачі паспорта: " + naturalPerson.getPassportIssueDate().format(DateTimeFormat.dateTimeFormatter()));
         passportIssuedLabel.setText("Ким видано паспорт: " + naturalPerson.getPassportIssued());
         individualTaxNumberLabel.setText("ІПН: " + naturalPerson.getIndividualTaxNumber());
         addressLabel.setText("Адреса: " + naturalPerson.getAddress());
@@ -70,7 +69,7 @@ public class NaturalPersonInfoForm extends JFrame{
     }
 
     private void updateRowData(java.util.List<Lease> leaseList){
-        java.util.List<Lease> activeLease = getActiveLease(leaseList);
+        java.util.List<Lease> activeLease = LeaseUtil.getActive(leaseList);
         java.util.List<Apartment> apartments = getApartmentList(activeLease);
         Object rowData[][] = new String[apartments.size()][5];
         for (int i = 0; i < apartments.size(); i++) {
@@ -89,15 +88,5 @@ public class NaturalPersonInfoForm extends JFrame{
             apartments.add(lease.getApartment());
         }
         return apartments;
-    }
-
-    private java.util.List<Lease> getActiveLease(java.util.List<Lease> leaseList) {
-        List<Lease> activeLeases = new ArrayList();
-        for (Lease lease: leaseList) {
-            if (lease.getEndDate().isAfter(LocalDateTime.now())) {
-                activeLeases.add(lease);
-            }
-        }
-        return activeLeases;
     }
 }

@@ -9,18 +9,18 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class OrganizationDAO {
+public class EmployeeDao {
 
-    public Organization create(Organization organization) {
+    public Employee create(Employee employee) {
         Session session = null;
         Transaction transaction  = null;
         try {
             session = HibernateConnector.getInstance().getSession();
             transaction = session.beginTransaction();
-            session.persist(organization);
+            session.persist(employee);
             transaction.commit();
 
-            return organization;
+            return employee;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -29,18 +29,18 @@ public class OrganizationDAO {
         }
     }
 
-    public Organization findByCode(String code) {
+    public Employee findByCode(String code) {
         Session session = null;
         try {
             session = HibernateConnector.getInstance().getSession();
-            Query query = session.createQuery("from Organization o where o.code = :code");
+            Query query = session.createQuery("from Employee o where o.code = :code");
             query.setParameter("code", code);
 
             List queryList = query.list();
             if (queryList != null && queryList.isEmpty()) {
                 return null;
             } else {
-                return (Organization) queryList.get(0);
+                return (Employee) queryList.get(0);
             }
         } catch (Exception e) {
             e.printStackTrace();

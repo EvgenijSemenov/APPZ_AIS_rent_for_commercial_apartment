@@ -3,6 +3,8 @@ package organization.form.renter;
 import entity.Apartment;
 import entity.Lease;
 import entity.LegalPerson;
+import util.DateTimeFormat;
+import util.LeaseUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,13 +27,11 @@ public class LegalPersonInfoForm extends JFrame{
         this.setSize(805, 300);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-
         nameLabel.setText("Назва: " + legalPerson.getName());
         addressLabel.setText("Адреса: " + legalPerson.getAddress());
         individualTaxNumberLabel.setText("ІПН: " + legalPerson.getIndividualTaxNumber());
         licenseNumberLabel.setText("Номер ліцензії: " + legalPerson.getLicenseNumber());
-        licenseDateLabel.setText("Дата ліцензії: " + legalPerson.getLicenseDate().format(formatter));
+        licenseDateLabel.setText("Дата ліцензії: " + legalPerson.getLicenseDate().format(DateTimeFormat.dateTimeFormatter()));
 
         nameLabel.setBounds(10, 5, 788, 20);
         addressLabel.setBounds(10, 25, 788, 20);
@@ -66,7 +66,7 @@ public class LegalPersonInfoForm extends JFrame{
     }
 
     private void updateRowData(List<Lease> leaseList){
-        List<Lease> activeLease = getActiveLease(leaseList);
+        List<Lease> activeLease = LeaseUtil.getActive(leaseList);
         List<Apartment> apartments = getApartmentList(activeLease);
         Object rowData[][] = new String[apartments.size()][5];
         for (int i = 0; i < apartments.size(); i++) {
@@ -87,13 +87,4 @@ public class LegalPersonInfoForm extends JFrame{
         return apartments;
     }
 
-    private List<Lease> getActiveLease(List<Lease> leaseList) {
-        List<Lease> activeLeases = new ArrayList();
-        for (Lease lease: leaseList) {
-            if (lease.getEndDate().isAfter(LocalDateTime.now())) {
-                activeLeases.add(lease);
-            }
-        }
-        return activeLeases;
-    }
 }
