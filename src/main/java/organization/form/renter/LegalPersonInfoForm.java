@@ -22,7 +22,7 @@ public class LegalPersonInfoForm extends JFrame{
     private Object rowData[][];
     private Object columnNames[] = { "Адреса", "Площа - кв.м.", "Площа підвалу - кв.м.", "Коефіцієнт підвалу", "Коефіцієнт технічного облаштування приміщення" };
 
-    LegalPersonInfoForm(LegalPerson legalPerson){
+    public LegalPersonInfoForm(LegalPerson legalPerson){
         super("Інформація про орендаря");
         this.setSize(805, 300);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

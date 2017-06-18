@@ -1,7 +1,8 @@
-package organization.form.renter;
+package form;
 
-import dao.RenterDAO;
 import entity.*;
+import organization.form.renter.LegalPersonInfoForm;
+import organization.form.renter.NaturalPersonInfoForm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,35 +11,50 @@ import java.awt.event.MouseListener;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class ListForm extends JFrame {
+public class RenterListForm extends JFrame {
     private Object rowData[][];
     private Object columnNames[] = {"Орендар", "Орендованих приміщень"};
-    private RenterDAO renterDAO = new RenterDAO();
     private List renterList;
+    private JTable table = new JTable();
+    private JScrollPane scrollPane;
 
-    public ListForm(int organizationId) {
+    public RenterListForm(List renterList) {
         super("Список орендарів");
+
+        updateRowData(renterList);
+
+        this.renterList = renterList;
+
+        initForm();
+        initElement();
+        initAction();
+    }
+
+    private void initForm() {
         this.setSize(805, 300);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+    }
 
-        renterList = renterDAO.rentersByOrganizationId(organizationId);
-        updateRowData(renterList);
-        JTable table = new JTable(rowData, columnNames) {
+    private void initElement() {
+        table = new JTable(rowData, columnNames) {
+
             private static final long serialVersionUID = 1L;
 
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
+
         };
 
+        scrollPane = new JScrollPane(table);
 
-        JScrollPane scrollPane = new JScrollPane(table);
         this.add(scrollPane, BorderLayout.CENTER);
+    }
 
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-
+    private void initAction() {
         table.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -73,6 +89,7 @@ public class ListForm extends JFrame {
             public void mouseExited(MouseEvent e) {
 
             }
+
         });
     }
 
@@ -107,6 +124,7 @@ public class ListForm extends JFrame {
                 result++;
             }
         }
+
         return result;
     }
 
@@ -117,10 +135,12 @@ public class ListForm extends JFrame {
                 result++;
             }
         }
+
         return result;
     }
 
     private boolean isActiveLease(Lease lease) {
         return lease.getEndDate().isAfter(LocalDateTime.now());
     }
+
 }
